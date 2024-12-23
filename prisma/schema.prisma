@@ -1,0 +1,40 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int     @id @default(autoincrement())
+  email    String  @unique
+  username String
+  password String
+  bio      String?
+  Tweet    Tweet[]
+  Like     Like[]
+}
+
+model Tweet {
+  id         Int      @id @default(autoincrement())
+  tweet      String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  user       User?    @relation(fields: [user_id], references: [id], onDelete: SetNull)
+  user_id    Int?
+  Like       Like[]
+}
+
+model Like {
+  id         Int      @id @default(autoincrement())
+  created_at DateTime @default(now())
+  user       User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user_id    Int
+  tweet      Tweet    @relation(fields: [tweet_id], references: [id], onDelete: Cascade)
+  tweet_id   Int
+}
