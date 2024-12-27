@@ -16,8 +16,8 @@ model User {
   username String
   password String
   bio      String?
-  Tweet    Tweet[]
-  Like     Like[]
+  tweets    Tweet[]
+  likes     Like[]
 }
 
 model Tweet {
