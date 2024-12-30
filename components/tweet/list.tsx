@@ -35,7 +35,7 @@ export default function TweetList({ initTweets }: TweetListProps) {
 
   return (
     <>
-      <ul role="list" className="divide-y divide-neutral-600">
+      <ul role="list" className="w-screen max-w-lg divide-y divide-neutral-600">
         {tweets.map((tweet) => (
           <TweetCard key={tweet.id} {...tweet} />
         ))}

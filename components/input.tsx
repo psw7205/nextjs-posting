@@ -2,7 +2,7 @@ import { InputHTMLAttributes, ReactNode } from "react";
 
 interface InputProps {
   name: string;
-  icon: ReactNode;
+  icon?: ReactNode;
   errors?: string[];
 }
 
