@@ -58,6 +58,7 @@ export async function handleForm(_: unknown, formData: FormData) {
     } else {
       return {
         fieldErrors: {
+          email: undefined,
           password: ["Wrong password"],
         },
       };

@@ -103,7 +103,7 @@ export default function CreateAccount() {
         <Link href="/create-account" className="text-right hover:underline">
           로그인
         </Link>
-        {state?.ok && (
+        {false && (
           <div className="flex w-full items-center rounded-lg bg-green-500 p-4 font-bold">
             <CheckBadgeIcon className="mr-2 size-8" /> Welcom Back!
           </div>

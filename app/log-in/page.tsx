@@ -45,7 +45,7 @@ export default function Login() {
             type="email"
             required
             placeholder="Email"
-            errors={state?.fieldErrors.email}
+            errors={state?.fieldErrors?.email}
             icon={
               <EnvelopeIcon
                 aria-hidden="true"
