@@ -2,6 +2,7 @@
 
 import { getTweets } from "@/app/actions";
 import TweetCard from "@/components/tweet/card";
+import { PER_PAGE } from "@/lib/utils";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 
 import { Prisma } from "@prisma/client";
@@ -21,15 +22,16 @@ export default function TweetList({ initTweets }: TweetListProps) {
 
   const movePage = async (currentPage: number, offset: number) => {
     setIsLoading(true);
+
     const newTweets = await getTweets(currentPage + offset);
-    if (newTweets.length === 0) {
+    if (newTweets.length < PER_PAGE) {
       setIsLastPage(true);
     } else {
-      setPage((prev) => prev + offset);
       setTweets(() => [...newTweets]);
       setIsLastPage(false);
     }
 
+    setPage((prev) => prev + offset);
     setIsLoading(false);
   };
 
@@ -56,7 +58,7 @@ export default function TweetList({ initTweets }: TweetListProps) {
           <div></div>
         )}
 
-        <div>현재 페이지: {page}</div>
+        <div>현재 페이지: {page + 1}</div>
 
         {isLastPage ? (
           <div></div>

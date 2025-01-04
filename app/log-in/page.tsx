@@ -13,7 +13,7 @@ export default function Login() {
   const [state, action] = useActionState(handleForm, null);
 
   return (
-    <div className="mx-auto flex flex-col gap-10 p-6">
+    <div className="mx-auto flex w-96 flex-col gap-10 p-6">
       <div className="mx-auto flex size-48">
         <svg
           data-slot="icon"

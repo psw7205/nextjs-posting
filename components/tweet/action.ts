@@ -4,6 +4,7 @@ import { z } from "zod";
 import db from "@/lib/db";
 import getSession from "@/lib/session";
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 const tweetSchema = z.object({
   tweet: z.string({
@@ -33,5 +34,41 @@ export async function uploadTweet(_: unknown, formData: FormData) {
       });
       redirect(`/`);
     }
+  }
+}
+
+export async function likePost(tweet_id: number) {
+  const session = await getSession();
+  try {
+    const res = await db.like.create({
+      data: {
+        tweet_id,
+        user_id: session.id!,
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    revalidatePath(`/tweet/${tweet_id}`);
+    return res.id;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export async function dislikePost(id: number, tweet_id: number) {
+  try {
+    const session = await getSession();
+    await db.like.delete({
+      where: {
+        id,
+        user_id: session.id!,
+      },
+    });
+
+    revalidatePath(`/tweet/${tweet_id}`);
+  } catch (e) {
+    console.log(e);
   }
 }
