@@ -28,12 +28,10 @@ async function getTweet(id: number) {
   });
 }
 
-export default async function TweetDetail({
-  params,
-}: {
-  params: { id: string };
+export default async function TweetDetail(props: {
+  params: Promise<{ id: string }>;
 }) {
-  const id = Number((await params).id);
+  const id = Number((await props.params).id);
   if (isNaN(id)) {
     return notFound();
   }

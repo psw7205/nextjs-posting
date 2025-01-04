@@ -15,6 +15,7 @@ async function getUser() {
       return user;
     }
   }
+  return notFound();
 }
 
 export default async function Profile() {
